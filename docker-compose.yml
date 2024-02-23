@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  # Development service
+  dev:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    command: npm start
+
+  # Unit testing service
+  unittest:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      NODE_ENV: test
+    command: npm run test:unit
+
+  # Integration testing service
+  integrationtest:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      NODE_ENV: test
+    command: npm run test:integration
