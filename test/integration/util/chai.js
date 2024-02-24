@@ -1,4 +1,4 @@
-import * as chai from "chai";
-import chaiHttp from "chai-http";
+import * as chai from 'chai'
+import chaiHttp from 'chai-http'
 
-export default chai.use(chaiHttp);
+export default chai.use(chaiHttp)
