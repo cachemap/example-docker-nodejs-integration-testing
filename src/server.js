@@ -1,9 +1,12 @@
-import express from 'express';
+import express from 'express'
+import usersRouter from './routers/usersRouter.js'
 
-const app = express();
+const app = express()
 
-app.get('/api/users', (req, res) => {
-  res.json([{ name: 'Alice' }, { name: 'Bob' }]);
-});
+app.use('/api/users', usersRouter)
 
-export default app;
+// app.get("/api/teachers", (req, res) => {
+//   res.json([{ name: "Mrs. Alice" }, { name: "Mr. Bob" }]);
+// });
+
+export default app
