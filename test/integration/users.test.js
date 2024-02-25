@@ -32,4 +32,21 @@ describe('Integration Tests for User API', () => {
         })
     })
   })
+
+  describe('POST /api/users', () => {
+    it('should add a new user', async () => {
+      // Create a new user
+      const postResponse = await chai.request(app).keepOpen().post('/api/users').send({
+        userName: 'Freddie',
+      })
+      expect(postResponse).to.have.status(200)
+
+      // Pull updated list of users
+      const getResponse = await chai.request(app).get('/api/users')
+      expect(getResponse).to.have.status(200)
+      expect(getResponse.body).to.be.an('array')
+      expect(getResponse.body.length).to.be.equal(3)
+      expect(getResponse.body[2]).to.have.property('user_name').eql('Freddie')
+    })
+  })
 })
