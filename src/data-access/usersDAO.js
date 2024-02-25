@@ -29,7 +29,7 @@ export async function insertUsers(newUsers) {
     throw new Error('newUsers argument must be an array')
   }
 
-  newUsers = newUsers.map(({ user_name: userName }) => [userName])
+  newUsers = newUsers.map(({ user_name }) => [user_name])
 
   const sql = `INSERT INTO ${TABLE_NAME} (user_name) VALUES ?;`
 
