@@ -21,3 +21,17 @@ export async function getUsers() {
   return rows
 }
 
+/**
+ * @param {Array<{ user_name: string }>} newUsers
+ */
+export async function insertUsers(newUsers) {
+  if (!Array.isArray(newUsers)) {
+    throw new Error('newUsers argument must be an array')
+  }
+
+  newUsers = newUsers.map(({ user_name: userName }) => [userName])
+
+  const sql = `INSERT INTO ${TABLE_NAME} (user_name) VALUES ?;`
+
+  await pool.query(sql, [newUsers])
+}
