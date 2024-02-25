@@ -1,7 +1,7 @@
 {
   "name": "docker-nodejs-testing",
   "version": "1.0.0",
-  "description": "Example library of a containerized NodeJS Express server with API integration tests featuring seeded database data",
+  "description": "Example library of a containerized NodeJS Express server with API integration tests featuring database seeding",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
