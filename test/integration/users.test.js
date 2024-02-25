@@ -5,19 +5,19 @@ import * as usersDAO from '../../src/data-access/usersDAO.js'
 
 const { expect } = chai
 
-const USERS = [
-  { user_name: 'Alice' },
-  { user_name: 'Bob' },
-]
+const USERS = [{ user_name: 'Alice' }, { user_name: 'Bob' }]
 
 describe('Integration Tests for User API', () => {
-  describe('GET /api/users', () => {
-    beforeEach(async function seedDatabase() {
-      await usersDAO.createTable()
-      await truncateTable(usersDAO.TABLE_NAME)
-      await usersDAO.insertUsers(USERS)
-    })
+  before(async function createTable() {
+    await usersDAO.createTable()
+  })
 
+  beforeEach(async function seedDatabase() {
+    await truncateTable(usersDAO.TABLE_NAME)
+    await usersDAO.insertUsers(USERS)
+  })
+
+  describe('GET /api/users', () => {
     it('should return all users', (done) => {
       chai
         .request(app)
