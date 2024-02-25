@@ -1,9 +1,10 @@
 import { Router } from 'express'
+import * as usersService from '../services/usersService.js'
 
 const usersRouter = Router()
 
-usersRouter.get('/', (req, res) => {
-  res.json([{ name: 'Alice' }, { name: 'Bob' }])
+usersRouter.get('/', async (req, res) => {
+  res.json(await usersService.getUsers())
 })
 
 export default usersRouter
