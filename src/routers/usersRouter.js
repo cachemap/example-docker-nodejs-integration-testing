@@ -10,12 +10,12 @@ usersRouter.get('/', async (req, res) => {
 })
 
 usersRouter.post('/', async (req, res) => {
-  const userName = req.body?.userName
+  const userName = req.body?.user_name
   if (!userName) {
-    return res.status(400).end()
+    return res.status(400).send()
   }
 
-  res.json(await usersService.createUser({ user_name: userName }))
+  res.json(await usersService.createUser(req.body))
 })
 
 export default usersRouter

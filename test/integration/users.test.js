@@ -37,7 +37,7 @@ describe('Integration Tests for User API', () => {
     it('should add a new user', async () => {
       // Create a new user
       const postResponse = await chai.request(app).keepOpen().post('/api/users').send({
-        userName: 'Freddie',
+        user_name: 'Freddie',
       })
       expect(postResponse).to.have.status(200)
 
