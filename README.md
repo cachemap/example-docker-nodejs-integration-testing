@@ -38,3 +38,23 @@ When you first open a project like this one, you'll want to check out this file.
 - `"peerDependencies"` - other packages that must be installed alongside your other dependencies, but whose version can't be nailed down specifically by some dependency that uses these peerDependencies (these are rarer than the other 2)
 
 Talk about owning the "keys to the kingdom"! If you've read this file, you typically know incredibly useful things like what useful purpose this repo is achieves and what kinds of external libraries it leverages. For example, our `dependencies` lists a library called `express`, which is a dead giveaway this repository represents an Express API Server. See Client-Server Model.
+
+## 🐋 `Dockerfile` - how to "build" this application and launch it within a container
+
+Docker (and more specifically containerization) has a lot of benefits. To convince you, here are some:
+- It's a technology that helps solve a problem with complex development: **dependency management**. Two different developers on two different machines must install an application's dependencies correctly and according to the platform (Linux, MacOS, Windows) it will be executing on, or else you encounter a frustrating problem where the code runs just fine on one dev's machine while it fails with a bunch of mysterious error codes on another's. Docker containers "embed" dependencies in a shareable way that elimantes this problem that has plagued development teams for decades.
+- Containers execute according to a standard that ensures the repeatability of the code contained within it. This enables an entire ecosystem of effective methods to deploy your code to production that support desirable qualities like fault tolerance, high service uptime, observability, and more!
+
+Ultimately, the presence of a Dockerfile indicates Docker is in use. It's included in this repository because it facilitates a demonstration of the power of containers. The Dockerfile is responsible for listing the "instructions" to build a Linux filesystem prepped with all dependencies installed appropriately so that your application is ready to go and guaranteed to "just work". In this repo's Dockerfile, all instructions except the last accomplish this goal. Then, the final `CMD` instruction specifies the command necessary to "launch" our application the *official* way.
+
+Pretty useful, eh?
+
+That is, until you need to start running Docker containers at the command line, by hand:
+
+`docker build docker-nodejs-testing`
+
+`docker run docker-nodejs-testing -v .:/usr/src/app -v /usr/src/app/node_modules -e MYSQL_DATABASE=test -p 3000:3000 ...`
+
+Isn't that just a mess?
+
+Luckily, there is a solution.
