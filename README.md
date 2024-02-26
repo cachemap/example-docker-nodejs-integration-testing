@@ -58,3 +58,38 @@ That is, until you need to start running Docker containers at the command line, 
 Isn't that just a mess?
 
 Luckily, there is a solution.
+
+# Docker Compose
+
+## `docker-compose.yml` - allows specifying Docker behavior via a human readable YAML configuration file
+
+This file allows us to define containerized "services" that can be launched individually like this: `docker compose up {service_name}`
+
+```
+services:
+  # Development service
+  dev:
+    build: . 
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    command: npm run start:development
+```
+
+In this snippet, we have defined a service specification running our API server in "development mode" for local development. This means we want our API server to run in a container on the machine we're executing our `docker compose` commands.
+
+We set environment variables that are present at container runtime (and thus read with `process.env` inside our Node code) with the `environment` key-value pair. The `build` key tells Docker Compose where the `Dockerfile` to be used for this service exists. 
+
+You'll notice that we can override the default `CMD` specified in our Dockerfile with the `command: npm run start:development`. This means that this service will instead run the `start:development` run script defined in the `"scripts"` section of our `package.json`.
+
+Crucially, this distinction here is useful because it launches our program via a `nodemon` "dev server" that has a useful trick up its sleeve: as we're writing our new code and saving our changes, `nodemon` listens for file changes and responds by relaunching the web server executing in its container so our changes are automatically reflected as we edit our source files. This speeds up the pace of development and saves us time because you don't need to keep manually restarting your container(s) when making changes to our application's source code.
+
+We'll discuss other configuration details of the `docker-compose.yml` file at a later time, but suffice it to say that this file exists to improve the developer of experience of working with Docker containers. Docker Compose is a tool to "orchestrate" containers running on the same "host" machine. This tends to be particularly handy for our application development purposes.
+
+You can start up all services defined in this file at once by typing `docker compose up` into your terminal command prompt (so long as your working directory is the top-level directory of this repo). Similarly, you can bring everything back down with `docker compose down`.
+
+There's obviously more to know that just this, but isn't that a breath of fresh air compared to the lengthy Docker commands shown earlier?
