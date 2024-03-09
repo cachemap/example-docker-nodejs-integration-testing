@@ -1,5 +1,12 @@
 # docker-nodejs-testing
 
+### Table of Contents
+1. [Intro](#Intro)
+2. [The Most Important Files](#the-most-important-files)
+    - [package.json](#packagejson---the-most-helpful-metadata)
+    - [Dockerfile](#🐋-Dockerfile---how-to-"build"-this-application-and-launch-it-within-a-container)
+3. [Docker Compose](#docker-compose)
+
 # Intro
 
 This repository shows an exemplary approach to containerizing a NodeJS Express Server project with the following notable features:
