@@ -88,8 +88,8 @@ You'll notice that we can override the default `CMD` specified in our Dockerfile
 
 Crucially, this distinction here is useful because it launches our program via a `nodemon` "dev server" that has a useful trick up its sleeve: as we're writing our new code and saving our changes, `nodemon` listens for file changes and responds by relaunching the web server executing in its container so our changes are automatically reflected as we edit our source files. This speeds up the pace of development and saves us time because you don't need to keep manually restarting your container(s) when making changes to our application's source code.
 
-We'll discuss other configuration details of the `docker-compose.yml` file at a later time, but suffice it to say that this file exists to improve the developer of experience of working with Docker containers. Docker Compose is a tool to "orchestrate" containers running on the same "host" machine. This tends to be particularly handy for our application development purposes.
+We'll discuss other configuration details of the `docker-compose.yml` file at a later time, but suffice it to say that this file exists to improve the developer experience when working with Docker containers. Docker Compose is a tool to "orchestrate" containers running on the same "host" machine. This tends to be particularly handy for our application development purposes.
 
 You can start up all services defined in this file at once by typing `docker compose up` into your terminal command prompt (so long as your working directory is the top-level directory of this repo). Similarly, you can bring everything back down with `docker compose down`.
 
-There's obviously more to know that just this, but isn't that a breath of fresh air compared to the lengthy Docker commands shown earlier?
+There's obviously more to know than just this, but isn't that a breath of fresh air compared to the lengthy Docker commands shown earlier?
