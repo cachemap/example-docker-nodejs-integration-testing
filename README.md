@@ -101,3 +101,81 @@ We'll discuss other configuration details of the `docker-compose.yml` file at a 
 You can start up all services defined in this file at once by typing `docker compose up` into your terminal command prompt (so long as your working directory is the top-level directory of this repo). Similarly, you can bring everything back down with `docker compose down`.
 
 There's obviously more to know than just this, but isn't that a breath of fresh air compared to the lengthy Docker commands shown earlier?
+
+# Integration Tests 
+
+There are many possible approaches to authoring tests. Some common setups are:
+- Jest (All in one test runner + assertions)
+- Mocha (+ Chai, Sinon, and Istanbul)
+- Cypress or Playwright for browser E2E testing
+
+This code repository uses `mocha` + `chai`. What are they for?
+
+## `mocha`
+
+Mocha is a "test runner" library: it is used for ingesting the tests defined in your source files, identifying which of your source files contain tests, and executing your tests while watching for errors... among other things. If you run `npm run test:integration` (or `docker compose up integrationtest`), you'll see the output `mocha` produces:
+
+```
+> mocha --spec ./test/integration
+
+
+  Integration Tests for User API
+    GET /api/users
+      ✔ should return all users
+    POST /api/users
+      ✔ should add a new user
+```
+
+You can see in `users.test.js` that this test is defined like so (in JavaScript!): 
+
+```js
+describe('Integration Tests for User API', () => {
+  describe('GET /api/users', () => {
+    it('should return all users', (done) => {
+      ...
+    })
+  })
+
+  describe('POST /api/users', () => {
+    it('should add a new user', async () => {
+      ...
+    })
+  })
+})
+```
+
+See how the code closely mirrors the output? That is on purpose! Also, if any tests ***do*** fail, you won't see a ✔ next to the tests that failed. And, what's more... you'll see further error output that can be used to understand why the test may be failing:
+
+```
+
+1) Integration Tests for User API
+       POST /api/users
+         should add a new user:
+
+      AssertionError: expected {{}} to have status code 400 but got 200
+      + expected - actual
+
+      -200 # (This is what we should have seen...)
+      +400 # (This is what we observed...)
+```
+
+You can thank `mocha` for all this nifty functionality!
+
+## chai
+
+Now, `chai` is what is known as an "assertion library". It is used within the body of our testing code to assert (or verify the truth of) certain expectations that we can make about the way our application code behaves.
+
+In fact, this is a fundamental concept in testing! Abstractly, we tend to define test code according to a special pattern. It is often referred to as "Arrange, Act, and Assert" (and it has many other names):
+
+``` js
+// 1) Arrange objects
+const a = 1, b = 2;
+
+// 2) Take an action that we want to test
+const total = sum(a, b)
+
+// 3) Assert that the effect of the tested logic actually happened
+expect(total).equals(3)
+
+```
+
