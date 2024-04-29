@@ -6,6 +6,7 @@
     - [package.json](#packagejson---the-most-helpful-metadata)
     - [Dockerfile](#🐋-Dockerfile---how-to-"build"-this-application-and-launch-it-within-a-container)
 3. [Docker Compose](#docker-compose)
+4. [Integration Testing with `mocha`, `chai`, and `chai-http`]()
 
 # Intro
 
@@ -93,7 +94,7 @@ We set environment variables that are present at container runtime (and thus rea
 
 You'll notice that we can override the default `CMD` specified in our Dockerfile with the `command: npm run start:development`. This means that this service will instead run the `start:development` run script defined in the `"scripts"` section of our `package.json`.
 
-Crucially, this distinction here is useful because it launches our program via a `nodemon` "dev server" that has a useful trick up its sleeve: as we're writing our new code and saving our changes, `nodemon` listens for file changes and responds by relaunching the web server executing in its container so our changes are automatically reflected as we edit our source files. This speeds up the pace of development and saves us time because you don't need to keep manually restarting your container(s) when making changes to our application's source code.
+Crucially, this distinction here is useful because it launches our program via a `nodemon` "dev server" that has a useful trick up its sleeve: as we're writing our new code and saving our changes, `nodemon` listens for file changes and responds by relaunching the web server executing in its container so our changes are automatically reflected as we edit our source files. This speeds up the pace of development and saves us time because you don't need to keep manually restarting your container(s) when making changes to your application's source code.
 
 We'll discuss other configuration details of the `docker-compose.yml` file at a later time, but suffice it to say that this file exists to improve the developer experience when working with Docker containers. Docker Compose is a tool to "orchestrate" containers running on the same "host" machine. This tends to be particularly handy for our application development purposes.
 
