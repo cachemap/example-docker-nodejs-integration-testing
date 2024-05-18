@@ -1,6 +1,6 @@
 import chai from './util/chai.js'
 import app from '../../src/server.js'
-import pool, { truncateTable } from '../../src/services/mysqlConnectionPool.js'
+import { truncateTable } from '../../src/services/mysqlConnectionPool.js'
 import * as usersDAO from '../../src/data-access/usersDAO.js'
 
 const { expect } = chai
