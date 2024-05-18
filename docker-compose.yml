@@ -11,6 +11,8 @@ services:
     environment:
       NODE_ENV: development
     command: npm run start:dev
+  depends_on:
+    - db
 
   # Unit testing service
   unittest:
